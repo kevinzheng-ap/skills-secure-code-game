@@ -35,6 +35,10 @@ class TaxPayer:
         base_dir = os.path.dirname(os.path.abspath(__file__))
         prof_picture_path = os.path.normpath(os.path.join(base_dir, path))
 
+    
+        if base_dir != os.path.commonpath([base_dir, prof_picture_path]):
+            return None
+
         with open(prof_picture_path, 'rb') as pic:
             picture = bytearray(pic.read())
 
@@ -47,6 +51,11 @@ class TaxPayer:
 
         if not path:
             raise Exception("Error: Tax form is required for all users")
+        
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        filepath = os.path.normpath(os.path.join(base_dir, path))
+        if base_dir != os.path.commonpath([base_dir, filepath]):
+            return None
 
         with open(path, 'rb') as form:
             tax_data = bytearray(form.read())
